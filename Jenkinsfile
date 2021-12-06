@@ -1,33 +1,29 @@
 pipeline
 {
-
-agent any
-stages
-
-{ 
-    stage ('scm checkout')
+    agent any
+    stages
     {
-        steps { git branch: 'master', url: 'https://github.com/prakashk0301/Ant-WebProject/' }
-    }
-
-    stage ('ant-prepare-target')
-    {
-        steps { withAnt(installation: 'ANT_HOME', jdk: 'JAVA_HOME') 
+        stage('SCM checkout')
         {
-          sh 'ant prepare'
-        }     }
-    }
-
-    stage ('ant-init-target')
-    {
-        steps 
-         { withAnt(installation: 'ANT_HOME', jdk: 'JAVA_HOME') 
-           {
+            steps{git branch: 'master', url: 'https://github.com/Vishal6747/Ant-WebProject.git'}
+        }
+        stage('ANT prepare target')
+        {
+            steps
+            {
+                withAnt(installation: 'ANT_HOME', jdk: 'JAVA_HOME') {
+               sh 'ant prepare'
+            }
+            }
+        }
+        stage('ANT init target')
+        {
+            steps
+            {
+                withAnt(installation: 'ANT_HOME', jdk: 'JAVA_HOME') {
                sh 'ant init'
-           }  }
+            }
+            }
+        }
     }
-
-}
-
-
 }
